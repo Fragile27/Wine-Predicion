@@ -16,14 +16,14 @@ scaler = joblib.load("artifacts/scaler.pkl")
 # ================== Custom CSS ==================
 st.markdown("""
     <style>
-        /* Background & Font */
+        /* Background & font */
         .stApp {
-            background-color: #f5f5f5;
-            color: #111;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             font-family: 'Arial', sans-serif;
+            color: #111;
         }
         .block-container {
-            max-width: 700px;
+            max-width: 900px;
             margin: auto;
             padding-top: 50px;
         }
@@ -31,9 +31,9 @@ st.markdown("""
         /* Header */
         h1 {
             text-align: center;
-            font-size: 2.5em;
+            font-size: 3em;
             font-weight: 700;
-            color: #111;
+            color: #222;
             margin-bottom: 10px;
         }
         p {
@@ -43,61 +43,77 @@ st.markdown("""
             margin-bottom: 40px;
         }
 
-        /* Sliders centered */
-        .stSlider {
-            width: 80% !important;
-            margin: auto;
+        /* Sliders centered & styled */
+        .stSlider > div {
+            background-color: #fff !important;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .stSlider > div:hover {
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+        }
+        .stSlider label {
+            font-weight: 600;
+            font-size: 1em;
         }
 
         /* Button */
         .stButton>button {
-            background-color: #111;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
             color: white !important;
             font-size: 18px !important;
-            font-weight: 600 !important;
+            font-weight: 600;
             padding: 0.8em 1.5em;
-            border-radius: 10px;
-            width: 50%;
+            border-radius: 12px;
+            width: 40%;
             display: block;
             margin: 30px auto;
             transition: all 0.3s ease-in-out;
         }
         .stButton>button:hover {
-            background-color: #333;
-            transform: scale(1.03);
+            transform: scale(1.05);
+            box-shadow: 0px 5px 25px rgba(0,0,0,0.2);
         }
 
         /* Result card */
         .result-card {
             margin-top: 30px;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 25px;
+            border-radius: 15px;
             text-align: center;
-            font-size: 1.3em;
+            font-size: 1.4em;
             font-weight: bold;
-            background-color: #fff;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
             color: #111;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
         }
         .good {
-            border-left: 5px solid #28a745;
+            border-left: 6px solid #28a745;
         }
         .bad {
-            border-left: 5px solid #dc3545;
+            border-left: 6px solid #dc3545;
         }
 
         /* Extra Results */
         .extra-results {
             margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             background: #fff;
             font-size: 1em;
             color: #111;
-            box-shadow: 0px 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0px 2px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Columns layout for sliders */
+        .stSlider {
+            width: 80% !important;
+            margin: auto;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # ================== App Header ==================
 st.markdown("<h1>Wine Quality Predictor</h1>", unsafe_allow_html=True)
@@ -146,3 +162,4 @@ if st.button("Predict Wine Quality"):
             <b>Balance:</b> Wines are best when all features align.
         </div>
     """, unsafe_allow_html=True)
+
