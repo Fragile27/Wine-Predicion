@@ -15,15 +15,14 @@ st.set_page_config(
 
 # ------------------- MAIN UI -------------------
 st.title("🍷 Wine Quality Prediction Dashboard")
-st.markdown("<h3 style='color:#8B0000;'>A refined tool for predicting premium wine quality</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='color:#ffffff;'>A refined tool for predicting premium wine quality</h3>", unsafe_allow_html=True)
 
 st.markdown("""
 Welcome to the **Wine Quality Prediction App**!  
 This tool uses a **Random Forest Classifier** trained on cleaned and balanced wine data.  
-Use the sidebar to set wine chemistry attributes and discover if your wine is of premium quality.  
+Adjust the sliders below to discover if your wine is of premium quality.  
 """)
 
-# ------------------- CUSTOM STYLE -------------------
 # ------------------- CUSTOM STYLE -------------------
 st.markdown("""
     <style>
@@ -50,7 +49,7 @@ st.markdown("""
         color: white;
     }
 
-    /* Sidebar hidden, sliders in main columns */
+    /* Sidebar hidden */
     section[data-testid="stSidebar"] {display:none;}
 
     /* Columns for sliders */
@@ -79,24 +78,24 @@ st.markdown("""
         color: #333;
     }
 
-    /* Predict button */
+    /* Predict button - bigger & Instagram style */
     .stButton>button {
-        width: 40%;
+        width: 60%;
+        height: 4.5em;
         display: block;
-        margin: 20px auto;
-        font-size: 18px;
-        font-weight: 600;
-        padding: 0.8em 1.5em;
-        border-radius: 20px;
+        margin: 30px auto;
+        font-size: 22px;
+        font-weight: 700;
+        border-radius: 25px;
         background: linear-gradient(90deg, #fd5949, #d6249f);
         color: white !important;
         border: none;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.35);
         transition: all 0.3s ease-in-out;
     }
     .stButton>button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        transform: scale(1.08);
+        box-shadow: 0 10px 35px rgba(0,0,0,0.5);
     }
 
     /* Result cards */
@@ -171,8 +170,3 @@ if st.button("🍇 Predict Quality"):
         "Chlorides", "Free SO₂", "Total SO₂", "Density", "pH", "Sulphates", "Alcohol"
     ])
     st.dataframe(df, use_container_width=True)
-
-
-
-
-
