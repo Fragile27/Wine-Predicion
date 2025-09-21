@@ -26,100 +26,28 @@ Use the sidebar to set wine chemistry attributes and discover if your wine is of
 # ------------------- CUSTOM STYLE -------------------
 st.markdown("""
     <style>
-    /* Background: Instagram gradient vibe */
-    .stApp {
-        background: linear-gradient(135deg, #fdf497, #fdf497 0%, #fd5949 50%, #d6249f 75%, #285AEB 100%);
-        font-family: 'Arial', sans-serif;
-        color: #111;
-    }
-    .block-container {
-        max-width: 1000px;
-        margin: auto;
-        padding-top: 50px;
-    }
-
-    /* Title & description */
-    h1, h3 {
-        text-align: center;
-        color: white;
-        text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-    }
-    p {
-        text-align: center;
-        color: white;
-    }
-
-    /* Sidebar hidden, sliders in main columns */
-    section[data-testid="stSidebar"] {display:none;}
-
-    /* Columns for sliders */
-    .slider-col {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 45%;
-    }
-    .sliders-row {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin-bottom: 40px;
-    }
-
-    /* Sliders styling */
-    .stSlider > div {
-        background-color: rgba(255,255,255,0.9) !important;
-        padding: 10px;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    .stSlider label {
-        font-weight: 600;
-        color: #333;
-    }
-
     /* Predict button */
     .stButton>button {
-        width: 40%;
+        width: 60%;              /* increase width */
+        height: 4em;             /* increase height */
         display: block;
-        margin: 20px auto;
-        font-size: 18px;
-        font-weight: 600;
-        padding: 0.8em 1.5em;
-        border-radius: 20px;
+        margin: 30px auto;
+        font-size: 22px;         /* larger font */
+        font-weight: 700;
+        border-radius: 25px;     /* rounder corners */
         background: linear-gradient(90deg, #fd5949, #d6249f);
         color: white !important;
         border: none;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.35);
         transition: all 0.3s ease-in-out;
     }
     .stButton>button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    }
-
-    /* Result cards */
-    .result-card {
-        margin-top: 30px;
-        padding: 25px;
-        border-radius: 20px;
-        text-align: center;
-        font-size: 1.4em;
-        font-weight: bold;
-        background: rgba(255,255,255,0.85);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    }
-    .good {border-left: 6px solid #28a745;}
-    .bad {border-left: 6px solid #dc3545;}
-
-    /* Dataframe styling */
-    .stDataFrame>div {
-        border-radius: 15px !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        background-color: rgba(255,255,255,0.95);
+        transform: scale(1.08);
+        box-shadow: 0 10px 35px rgba(0,0,0,0.5);
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # ------------------- Sliders Layout -------------------
 st.markdown("### ⚙️ Input Wine Measurements")
@@ -170,3 +98,4 @@ if st.button("🍇 Predict Quality"):
         "Chlorides", "Free SO₂", "Total SO₂", "Density", "pH", "Sulphates", "Alcohol"
     ])
     st.dataframe(df, use_container_width=True)
+
