@@ -4,7 +4,7 @@ import numpy as np
 
 # ================== Page Config ==================
 st.set_page_config(
-    page_title="💖 Wine Quality Predictor",
+    page_title="Wine Quality Predictor",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -16,122 +16,108 @@ scaler = joblib.load("artifacts/scaler.pkl")
 # ================== Custom CSS ==================
 st.markdown("""
     <style>
-        /* Background */
+        /* Background & Font */
         .stApp {
-            background: linear-gradient(135deg, #ffe4ec, #ffc1e3, #ffb6c1);
-            color: #4a0033;
-            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #111;
+            font-family: 'Arial', sans-serif;
         }
         .block-container {
-            max-width: 850px;
+            max-width: 700px;
             margin: auto;
-            padding-top: 40px;
+            padding-top: 50px;
         }
 
         /* Header */
         h1 {
-            font-size: 3em;
             text-align: center;
-            font-weight: 900;
-            background: linear-gradient(90deg, #ff69b4, #ff1493, #ff6ec7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 10px;
         }
         p {
             text-align: center;
-            font-size: 1.2em;
-            color: #660033;
-            font-style: italic;
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 40px;
         }
 
-        /* Dropdowns */
-        .stSelectbox label {
-            font-size: 1.1em !important;
-            color: #550033 !important;
-            font-weight: 600 !important;
-        }
-        div[data-baseweb="select"] {
-            background-color: #ffe4ec !important;
-            border-radius: 12px !important;
-            border: 2px solid #ff69b4 !important;
-            font-size: 1em !important;
-            font-weight: 500 !important;
-            color: #660033 !important;
+        /* Sliders centered */
+        .stSlider {
+            width: 80% !important;
+            margin: auto;
         }
 
         /* Button */
         .stButton>button {
-            background: linear-gradient(90deg, #ff69b4, #ff1493, #ff6ec7);
+            background-color: #111;
             color: white !important;
-            font-size: 20px !important;
-            font-weight: 700 !important;
-            padding: 1em 1.5em;
-            border-radius: 30px;
-            border: none;
-            width: 100%;
-            box-shadow: 0px 5px 25px rgba(255,105,180,0.7);
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            padding: 0.8em 1.5em;
+            border-radius: 10px;
+            width: 50%;
+            display: block;
+            margin: 30px auto;
             transition: all 0.3s ease-in-out;
         }
         .stButton>button:hover {
-            transform: scale(1.05) rotate(-1deg);
-            box-shadow: 0px 10px 35px rgba(255,20,147,0.9);
+            background-color: #333;
+            transform: scale(1.03);
         }
 
         /* Result card */
         .result-card {
             margin-top: 30px;
-            padding: 25px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 12px;
             text-align: center;
-            font-size: 1.6em;
+            font-size: 1.3em;
             font-weight: bold;
-            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            color: #111;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
         }
         .good {
-            background: rgba(255,182,193,0.4);
-            border: 3px solid #ff69b4;
-            color: #b30059;
-            box-shadow: 0px 0px 25px rgba(255,105,180,0.6);
+            border-left: 5px solid #28a745;
         }
         .bad {
-            background: rgba(255,228,225,0.6);
-            border: 3px solid #ff1493;
-            color: #800040;
-            box-shadow: 0px 0px 25px rgba(255,20,147,0.6);
+            border-left: 5px solid #dc3545;
         }
 
         /* Extra Results */
         .extra-results {
             margin-top: 20px;
             padding: 15px;
-            border-radius: 15px;
-            background: rgba(255,240,245,0.8);
-            font-size: 1.1em;
-            color: #550033;
-            box-shadow: 0px 0px 15px rgba(255,20,147,0.3);
+            border-radius: 8px;
+            background: #fff;
+            font-size: 1em;
+            color: #111;
+            box-shadow: 0px 2px 10px rgba(0,0,0,0.05);
         }
     </style>
 """, unsafe_allow_html=True)
 
 # ================== App Header ==================
-st.markdown("<h1>💖 Wine Quality Predictor</h1>", unsafe_allow_html=True)
-st.markdown("<p>Pick your wine details, girl, and let’s see if it’s fabulous 🍷✨</p>", unsafe_allow_html=True)
+st.markdown("<h1>Wine Quality Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<p>Adjust the sliders and see the predicted wine quality.</p>", unsafe_allow_html=True)
 
-# ================== Dropdown Inputs ==================
-fixed_acidity = st.selectbox("Fixed Acidity", [4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0])
-volatile_acidity = st.selectbox("Volatile Acidity", [0.1, 0.3, 0.5, 0.7, 0.9, 1.2])
-citric_acid = st.selectbox("Citric Acid", [0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
-residual_sugar = st.selectbox("Residual Sugar", [1, 2, 3, 5, 7, 10, 15])
-chlorides = st.selectbox("Chlorides", [0.01, 0.05, 0.1, 0.15, 0.2])
-free_sulfur_dioxide = st.selectbox("Free Sulfur Dioxide", [5, 10, 20, 30, 40, 50, 70])
-total_sulfur_dioxide = st.selectbox("Total Sulfur Dioxide", [20, 50, 100, 150, 200, 250])
-density = st.selectbox("Density", [0.990, 0.995, 1.000, 1.005])
-pH = st.selectbox("pH", [2.8, 3.0, 3.2, 3.5, 3.8, 4.0])
-sulphates = st.selectbox("Sulphates", [0.3, 0.5, 0.7, 1.0, 1.5])
-alcohol = st.selectbox("Alcohol %", [8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0])
+# ================== Slider Inputs ==================
+fixed_acidity = st.slider("Fixed Acidity", 4.0, 10.0, 7.0, 0.1)
+volatile_acidity = st.slider("Volatile Acidity", 0.1, 1.5, 0.5, 0.01)
+citric_acid = st.slider("Citric Acid", 0.0, 1.0, 0.3, 0.01)
+residual_sugar = st.slider("Residual Sugar", 0, 15, 5, 1)
+chlorides = st.slider("Chlorides", 0.01, 0.2, 0.05, 0.01)
+free_sulfur_dioxide = st.slider("Free Sulfur Dioxide", 5, 70, 20, 1)
+total_sulfur_dioxide = st.slider("Total Sulfur Dioxide", 20, 250, 100, 5)
+density = st.slider("Density", 0.990, 1.005, 0.995, 0.001)
+pH = st.slider("pH", 2.8, 4.0, 3.2, 0.01)
+sulphates = st.slider("Sulphates", 0.3, 1.5, 0.6, 0.01)
+alcohol = st.slider("Alcohol %", 8.0, 15.0, 11.0, 0.1)
 
 # ================== Prediction ==================
-if st.button("💅✨ Predict My Wine ✨💅"):
+if st.button("Predict Wine Quality"):
     input_data = np.array([[fixed_acidity, volatile_acidity, citric_acid, residual_sugar,
                             chlorides, free_sulfur_dioxide, total_sulfur_dioxide,
                             density, pH, sulphates, alcohol]])
@@ -142,21 +128,21 @@ if st.button("💅✨ Predict My Wine ✨💅"):
     # Quality Result
     if prediction == 1:
         st.markdown(
-            f"<div class='result-card good'>🌸✨ Premium Babe Wine! ✨🌸<br>Good Quality 💖🍷<br>Confidence: {probability[1]*100:.2f}%</div>",
+            f"<div class='result-card good'>Premium Wine 🍷<br>Confidence: {probability[1]*100:.2f}%</div>",
             unsafe_allow_html=True
         )
     else:
         st.markdown(
-            f"<div class='result-card bad'>🙅‍♀️ Not Slaying Yet...<br>Needs a Glow-Up 💔🍷<br>Confidence: {probability[0]*100:.2f}%</div>",
+            f"<div class='result-card bad'>Low Quality Wine 🍷<br>Confidence: {probability[0]*100:.2f}%</div>",
             unsafe_allow_html=True
         )
 
     # Extra Breakdown Results
-    st.markdown("""
+    st.markdown(f"""
         <div class='extra-results'>
-            <b>🍬 Sweetness Level:</b> Based on Residual Sugar → Higher sugar = sweeter wine.<br>
-            <b>🍋 Acidity Vibe:</b> Fixed & Volatile Acidity affect freshness.<br>
-            <b>🍸 Alcohol Strength:</b> Higher % makes wine bolder.<br>
-            <b>🌷 Overall Balance:</b> Perfect wines slay in all categories, babe! 💅✨
+            <b>Sweetness:</b> Residual Sugar level.<br>
+            <b>Acidity:</b> Fixed & Volatile Acidity affect freshness.<br>
+            <b>Alcohol:</b> Higher % makes wine bolder.<br>
+            <b>Balance:</b> Wines are best when all features align.
         </div>
     """, unsafe_allow_html=True)
