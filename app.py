@@ -80,7 +80,7 @@ st.markdown("""
 
     /* Predict button */
     .stButton>button {
-        width: 40%;
+        width: 80%;
         display: block;
         margin: 20px auto;
         font-size: 18px;
@@ -170,6 +170,7 @@ if st.button("🍇 Predict Quality"):
         "Chlorides", "Free SO₂", "Total SO₂", "Density", "pH", "Sulphates", "Alcohol"
     ])
     st.dataframe(df, use_container_width=True)
+
 
 
 
