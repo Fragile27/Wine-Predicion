@@ -1,0 +1,6 @@
+[theme]
+base="light"
+primaryColor="#8B0000"
+backgroundColor="#FFFFFF"   # pure white background
+secondaryBackgroundColor="#F5E0C3"   # soft beige for sidebar/cards
+textColor="#4B0000"
